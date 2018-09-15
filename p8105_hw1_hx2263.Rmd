@@ -1,13 +1,15 @@
 ---
 title: "p8105_hw1_hx2263"
+author: "Tiffany Xi"
+date: 2018-09-15
 output: github_document
 ---
-
 
 _Problem 1_
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(ggplot2)
 ```
 
 ```{r dataframe}
@@ -58,6 +60,38 @@ df_3
 Double type conversion represents the nested functions in R, in which you pass the results of one function to a second function. Still, factors return the numeric codes that correspond to the factor levels but character vectors generate NAs introduced by coercion.
 
 _Problem 2_
+
+```{r plot_df}
+#create new data frame
+df_4 = tibble(
+  x = rnorm(n = 1000),
+  y = rnorm(n = 1000),
+  vec_log = x + y > 0,
+  vec_num = as.numeric(vec_log),
+  vec_fac = as.factor(vec_log)
+)
+
+#Make scatterplot of y vs x, color points using the logical variable
+#red stands for FLASE in vec_log, blue stands for TRUE in vec_log
+ggplot(df_4, aes(x = x, y = y, color = vec_log)) + geom_point(size = 0.8)
+ggsave("scatter_plot_1.pdf", height = 4, width = 6)
+
+#scatterplot that color points using the numeric variables
+#dark blue stands for value 0, light blue stands for 1 in vec_num which is TRUE in vec_log
+ggplot(df_4, aes(x = x, y = y, color = vec_num)) + geom_point(size = 0.8)
+#scatterplot that color points using the factor variables
+#red stands for FLASE in vec_fac, blue stands for TRUE in vec_fac
+ggplot(df_4, aes(x = x, y = y, color = vec_fac)) + geom_point(size = 0.8)
+
+```
+Description: The newly created dataset has `r ncol(df_4)` columns and `r nrow(df_4)` rows. The mean of random sample x is `r mean(df_4$x)` and the median of x is `r median(df_4$x)`. The proportion of cases for which the logical vector is TRUE is `r prop.table(table(df_4$vec_log))[2]`
+
+
+
+
+
+
+
 
 
 
