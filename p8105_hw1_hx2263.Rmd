@@ -4,9 +4,60 @@ output: github_document
 ---
 
 
-**Problem 0.1**
+_Problem 1_
 
-```{r}
-
+```{r setup, include=FALSE}
+library(tidyverse)
 ```
+
+```{r dataframe}
+
+## create data frame
+df_1 = tibble(
+  random_samp = runif(n = 10, min = 0, max = 5),
+  vec_logical = random_samp > 2,
+  vec_char = paste(c("X"), 1:10, sep = ""),
+  vec_factor = factor(c("male", "male", "female", "female", "male", "female", "female", "male", "female", "male"))
+)
+df_1 
+mean(df_1$random_samp)
+mean(df_1$vec_logical)
+mean(df_1$vec_char)
+mean(df_1$vec_factor)
+```
+*What works and what doesn’t? Why?
+
+Numeric sample and logical vector works, while character vector and factor vector doesn't. Because arithmetic operation, such as mean, will fail when using character and factor vector, only works for numeric or logical vector. Numerical samples are real number set. Logical values of TRUE or FALSE always have the numeric value of 1 or 0. Character variables are set of strings.
+
+```{r convert_var, eval = FALSE}
+
+## create dataframe and convert var into numeric
+df_2 = tibble(
+  random_samp = runif(n = 10, min = 0, max = 5),
+  vec_logical = as.numeric(random_samp > 2),
+  vec_char = as.numeric(paste(c("X"), 1:10, sep = "")),
+  vec_factor = as.numeric(factor(c("male", "male", "female", "female", "male", "female", "female", "male", "female", "male")))
+)
+df_2 
+```
+*What happens?
+
+When applying as.numeric, factors will return the numeric codes that correspond to the factor levels and logical values of TRUE or FALSE will return the corresponding numeric value of 1 or 0. But character vectors will generate NAs introduced by coercion.
+
+```{r dual_convert_var}
+
+## create data frame and do dual conversion
+df_3 = tibble(
+  vec_char = as.numeric(as.factor(paste(c("X"), 1:10, sep = ""))),
+  vec_factor = as.numeric(as.character(factor(c("male", "male", "female", "female", "male", "female", "female", "male", "female", "male"))))
+)
+df_3 
+```
+*What happens?
+
+Double type conversion represents the nested functions in R, in which you pass the results of one function to a second function. Still, factors return the numeric codes that correspond to the factor levels but character vectors generate NAs introduced by coercion.
+
+_Problem 2_
+
+
 
