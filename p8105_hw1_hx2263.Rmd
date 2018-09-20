@@ -19,7 +19,9 @@ df_1 = tibble(
   random_samp = runif(n = 10, min = 0, max = 5),
   vec_logical = random_samp > 2,
   vec_char = paste(c("X"), 1:10, sep = ""),
-  vec_factor = factor(c("male", "male", "female", "female", "male", "female", "female", "male", "female", "male"))
+  vec_factor = factor(c("male", "male", "female", 
+                        "female", "male", "female", 
+                        "female", "male", "female", "male"))
 )
 df_1 
 mean(df_1$random_samp)
@@ -38,7 +40,9 @@ df_2 = tibble(
   random_samp = runif(n = 10, min = 0, max = 5),
   vec_logical = as.numeric(random_samp > 2),
   vec_char = as.numeric(paste(c("X"), 1:10, sep = "")),
-  vec_factor = as.numeric(factor(c("male", "male", "female", "female", "male", "female", "female", "male", "female", "male")))
+  vec_factor = as.numeric(factor(c("male", "male", "female", 
+                                   "female", "male", "female", 
+                                   "female", "male", "female", "male")))
 )
 df_2 
 ```
@@ -51,7 +55,9 @@ When applying as.numeric, factors will return the numeric codes that correspond 
 ## create data frame and do dual conversion
 df_3 = tibble(
   vec_char = as.numeric(as.factor(paste(c("X"), 1:10, sep = ""))),
-  vec_factor = as.numeric(as.character(factor(c("male", "male", "female", "female", "male", "female", "female", "male", "female", "male"))))
+  vec_factor = as.numeric(as.character(factor(c("male", "male", "female",
+                                                "female", "male", "female",
+                                                "female", "male", "female", "male"))))
 )
 df_3 
 ```
